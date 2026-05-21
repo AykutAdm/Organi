@@ -632,25 +632,23 @@ POST /api/products  (Ürün ekleme)
 
 ### 👤 Kullanıcı Paneli
 
-  <img src="Images/AnaSayfa-1.png" alt="Ana Sayfa" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-2.png" alt="Ürünler" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-3.png" alt="Kategoriler" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-4.png" alt="Hakkımızda" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-5.png" alt="Testimonials" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-6.png" alt="İletişim" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-7.png" alt="Footer" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-8.png" alt="Sepet" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-1.png" alt="AnaSayfa-1" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-2.png" alt="AnaSayfa-2" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-3.png" alt="AnaSayfa-3" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-4.png" alt="AnaSayfa-4" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-5.png" alt="AnaSayfa-5" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-6.png" alt="AnaSayfa-6" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-7.png" alt="AnaSayfa-7" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-8.png" alt="AnaSayfa-8" width="800" style="margin: 10px;">
   
 ### 🔐 Admin Paneli
 
-  <img src="Images/AdminDashboard-1.png" alt="Dashboard" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-2.png" alt="İstatistikler" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-3.png" alt="Ürün Yönetimi" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-4.png" alt="Kategori Yönetimi" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-5.png" alt="Sepet Yönetimi" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-6.png" alt="Slider Yönetimi" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-7.png" alt="Hakkımızda Yönetimi" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-8.png" alt="Besin Değerleri" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-1.png" alt="Dashboard-1" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-2.png" alt="Dashboard-2" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-3.png" alt="Dashboard-3" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-4.png" alt="Dashboard-4" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-5.png" alt="Dashboard-5" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-6.png" alt="Dashboard-6" width="800" style="margin: 10px;">
 
 </div>
 
