@@ -59,7 +59,10 @@ namespace Organi.Persistence.Repositories.ProductRepositories
                 query = query.Where(x => x.Price <= maxPrice);
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
-                query = query.Where(x => x.Name.Contains(searchTerm));
+            {
+                var lowerSearchTerm = searchTerm.ToLower();
+                query = query.Where(x => x.Name.ToLower().Contains(lowerSearchTerm));
+            }
 
             return await query.ToListAsync();
         }
