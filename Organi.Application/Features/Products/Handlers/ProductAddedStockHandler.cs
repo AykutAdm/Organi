@@ -1,6 +1,7 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Organi.Application.Features.Products.Events;
+using Organi.Application.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,16 @@ namespace Organi.Application.Features.Products.Handlers
 {
     public class ProductAddedStockHandler : INotificationHandler<ProductAddedEvent>
     {
-        private readonly ILogger<ProductAddedStockHandler> _logger;
+        private readonly IStockService _stockService;
 
-        public ProductAddedStockHandler(ILogger<ProductAddedStockHandler> logger)
+        public ProductAddedStockHandler(IStockService stockService)
         {
-            _logger = logger;
+            _stockService = stockService;
         }
 
-        public Task Handle(ProductAddedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(ProductAddedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Yeni ürün stoğa eklendi: {Name}, Başlangıç Stok: {Stock}", notification.Product.Name, notification.Product.Stock);
-            return Task.CompletedTask;
+            await _stockService.InitializeStockAsync(notification.Product.ProductId, notification.Product.Stock);
         }
     }
 }

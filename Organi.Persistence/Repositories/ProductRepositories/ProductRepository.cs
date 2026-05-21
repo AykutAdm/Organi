@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Organi.Domain.Entities;
 using Organi.Domain.Interfaces;
 using Organi.Persistence.Context;
@@ -74,7 +74,7 @@ namespace Organi.Persistence.Repositories.ProductRepositories
             return await _context.Products.CountAsync();
         }
 
-        public async Task<List<Product>> RecentProduts()
+        public async Task<List<Product>> RecentProducts()
         {
             return await _context.Products.Include(x => x.Category).OrderByDescending(x => x.ProductId).Take(6).ToListAsync();
         }

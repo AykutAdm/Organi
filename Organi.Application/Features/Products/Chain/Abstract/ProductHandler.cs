@@ -1,4 +1,4 @@
-﻿using Organi.Domain.Entities;
+using Organi.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,10 @@ namespace Organi.Application.Features.Products.Chain.Abstract
     {
         protected ProductHandler NextHandler;
 
-        public void SetNext(ProductHandler nextHandler)
+        public ProductHandler SetNext(ProductHandler nextHandler)
         {
             NextHandler = nextHandler;
+            return nextHandler;
         }
 
         public abstract Task Handle(Product product);

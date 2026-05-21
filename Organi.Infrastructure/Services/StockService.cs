@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Organi.Application.Interfaces.Services;
 using Organi.Domain.Interfaces;
 using System;
@@ -53,6 +53,26 @@ namespace Organi.Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Stok artırıldı: {Name}, Yeni Stok: {Stock}", product.Name, product.Stock);
+        }
+
+        public async Task InitializeStockAsync(int productId, int initialStock)
+        {
+            var product = await _unitOfWork.Products.GetByIdAsync(productId);
+            if (product == null)
+            {
+                _logger.LogWarning("Ürün bulunamadı: ProductId {ProductId}", productId);
+                return;
+            }
+
+            // Stok takibi için log at ve gerekirse uyarı ver
+            if (initialStock < 10)
+            {
+                _logger.LogWarning("Düşük stok ile ürün eklendi: {Name}, Stok: {Stock}", product.Name, initialStock);
+            }
+            else
+            {
+                _logger.LogInformation("Ürün stok sistemi başlatıldı: {Name}, Başlangıç Stok: {Stock}", product.Name, initialStock);
+            }
         }
     }
 }

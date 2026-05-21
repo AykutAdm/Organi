@@ -1,4 +1,4 @@
-﻿@model List<ResultBasketDto>
+@model List<ResultBasketDto>
 @using Organi.WebUI.DTOs.BasketDtos
 @{
     ViewData["Title"] = "Index";
@@ -138,7 +138,7 @@
 
 
 <script>
-wwfunction decreaseQuantity(basketId, currentQuantity) {
+function decreaseQuantity(basketId, currentQuantity) {
     if (currentQuantity > 1) {
         updateQuantity(basketId, currentQuantity - 1);
     } else {

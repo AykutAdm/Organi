@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Organi.Application.Features.Products.Commands;
+using Organi.Application.Features.Products.Chain.Abstract;
+using Organi.Application.Features.Products.Chain.Factories;
 using Organi.Application.Interfaces.Services;
 using Organi.Application.Mapping;
 using Organi.Domain.Interfaces;
@@ -40,6 +42,9 @@ builder.Services.AddScoped<IProductNutritionRepository, ProductNutritionReposito
 builder.Services.AddScoped<IStockService, StockService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Chain of Responsibility Factory
+builder.Services.AddScoped<IValidationChainFactory, ValidationChainFactory>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

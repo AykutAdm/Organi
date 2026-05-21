@@ -1,4 +1,4 @@
-﻿using Organi.Domain.Entities;
+using Organi.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace Organi.Domain.Interfaces
         Task<List<Product>> GetProductsWithFilterAsync(int? categoryId, decimal? minPrice, decimal? maxPrice, string searchTerm);
         Task<int> ProductCountAsync();
         Task<int> LowStockCountAsync(int threshold = 30);
-        Task<List<Product>> RecentProduts();
+        Task<List<Product>> RecentProducts();
         Task<List<Product>> GetProductsWithCategoryAsync();
     }
 }

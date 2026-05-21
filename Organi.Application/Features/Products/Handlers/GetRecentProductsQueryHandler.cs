@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MediatR;
 using Organi.Application.Features.Products.DTOs;
 using Organi.Application.Features.Products.Queries;
@@ -24,7 +24,7 @@ namespace Organi.Application.Features.Products.Handlers
 
         public async Task<List<RecentProductDto>> Handle(GetRecentProductsQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.RecentProduts();
+            var values = await _repository.RecentProducts();
             return _mapper.Map<List<RecentProductDto>>(values);
         }
     }

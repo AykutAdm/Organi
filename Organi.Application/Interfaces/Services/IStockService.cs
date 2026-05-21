@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +11,6 @@ namespace Organi.Application.Interfaces.Services
         Task DecreaseStockAsync(int productId, int amount);
         Task IncreaseStockAsync(int productId, int amount);
         Task ClearStockAsync(int productId);
+        Task InitializeStockAsync(int productId, int initialStock);
     }
 }
