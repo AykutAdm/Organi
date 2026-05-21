@@ -1,0 +1,49 @@
+﻿@model List<ResultCategoryDto>
+
+@{
+    ViewData["Title"] = "CategoryList";
+    ViewData["PageTitle"] = "Categories";
+    ViewData["PageSub"] = $"Manage product categories · {Model.Count} total";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/Category/CreateCategory" style="font-size:12px;padding:7px 16px">+ Add Category</a>
+}
+
+<div class="admin-page">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px">
+        <div class="stat-card" style="animation-delay:.05s">
+            <div class="stat-top">
+                <div class="stat-icon-wrap green">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10M4 18h6" /></svg>
+                </div>
+            </div>
+            <div class="stat-val">@Model.Count</div>
+            <div class="stat-label">Total Categories</div>
+        </div>
+    </div>
+    <div class="table-card table-card--cols-3" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All Categories</div>
+        </div>
+        <table>
+            <thead><tr><th>#</th><th>Category Name</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="color:var(--text-muted)">@item.CategoryId</td>
+                        <td><div class="prod-name">@item.Name</div></td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/Category/UpdateCategory/@item.CategoryId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/Category/DeleteCategory/@item.CategoryId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

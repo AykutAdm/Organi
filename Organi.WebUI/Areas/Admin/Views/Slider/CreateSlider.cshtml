@@ -1,0 +1,38 @@
+@model CreateSliderDto
+
+@{
+    ViewData["Title"] = "CreateSlider";
+    ViewData["PageTitle"] = "Add Slider";
+    ViewData["PageSub"] = "Create a new homepage slide";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/Slider/SliderList" style="font-size:12px;padding:7px 16px">← Back to Slider</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">Slider Details</div>
+        <form method="post" action="/Admin/Slider/CreateSlider">
+            <div class="form-grid">
+                <div class="form-group span-2">
+                    <label class="form-label" for="Title">Title</label>
+                    <input class="form-input" type="text" id="Title" asp-for="Title" placeholder="e.g. Organic Food For Health" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="ImageUrl">Image URL</label>
+                    <input class="form-input" type="text" id="ImageUrl" asp-for="ImageUrl" placeholder="/images/slider/banner.png" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="Description">Description</label>
+                    <textarea class="form-textarea" id="Description" asp-for="Description" placeholder="Slider description text..."></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Save Slider</button>
+                <a class="btn-ghost" href="/Admin/Slider/SliderList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

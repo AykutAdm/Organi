@@ -1,0 +1,42 @@
+@model CreateAboutDto
+
+@{
+    ViewData["Title"] = "CreateAbout";
+    ViewData["PageTitle"] = "Add About";
+    ViewData["PageSub"] = "Create a new about section";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/About/AboutList" style="font-size:12px;padding:7px 16px">← Back to About</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">About Details</div>
+        <form method="post" action="/Admin/About/CreateAbout">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="Title">Title</label>
+                    <input class="form-input" type="text" id="Title" asp-for="Title" placeholder="e.g. Good Organic Products" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="SubTitle">Sub Title</label>
+                    <input class="form-input" type="text" id="SubTitle" asp-for="SubTitle" placeholder="e.g. Fresh from our farm" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="ImageUrl">Image URL</label>
+                    <input class="form-input" type="text" id="ImageUrl" asp-for="ImageUrl" placeholder="/images/about/section.jpg" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="Description">Description</label>
+                    <textarea class="form-textarea" id="Description" asp-for="Description" placeholder="About section description..."></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Save About</button>
+                <a class="btn-ghost" href="/Admin/About/AboutList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

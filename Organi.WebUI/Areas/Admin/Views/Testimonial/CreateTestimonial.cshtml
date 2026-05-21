@@ -1,0 +1,42 @@
+@model CreateTestimonialDto
+
+@{
+    ViewData["Title"] = "CreateTestimonial";
+    ViewData["PageTitle"] = "Add Testimonial";
+    ViewData["PageSub"] = "Create a new customer testimonial";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/Testimonial/TestimonialList" style="font-size:12px;padding:7px 16px">← Back to Testimonial</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">Testimonial Details</div>
+        <form method="post" action="/Admin/Testimonial/CreateTestimonial">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="NameSurname">Name Surname</label>
+                    <input class="form-input" type="text" id="NameSurname" asp-for="NameSurname" placeholder="e.g. John Doe" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="Title">Title</label>
+                    <input class="form-input" type="text" id="Title" asp-for="Title" placeholder="e.g. Happy Customer" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="ImageUrl">Image URL</label>
+                    <input class="form-input" type="text" id="ImageUrl" asp-for="ImageUrl" placeholder="/images/testimonial/user.jpg" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="Description">Description</label>
+                    <textarea class="form-textarea" id="Description" asp-for="Description" placeholder="Customer review text..."></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Save Testimonial</button>
+                <a class="btn-ghost" href="/Admin/Testimonial/TestimonialList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

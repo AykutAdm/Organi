@@ -1,0 +1,6 @@
+@Organi.WebAPI_HostAddress = http://localhost:5045
+
+GET {{Organi.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

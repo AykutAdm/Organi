@@ -1,0 +1,46 @@
+﻿@model List<ResultSliderDto>
+
+@{
+    ViewData["Title"] = "SliderList";
+    ViewData["PageTitle"] = "Slider";
+    ViewData["PageSub"] = $"Manage homepage sliders · {Model.Count} total";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/Slider/CreateSlider" style="font-size:12px;padding:7px 16px">+ Add Slider</a>
+}
+
+<div class="admin-page">
+    <div class="table-card table-card--cols-slider" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All Sliders</div>
+        </div>
+        <table>
+            <thead><tr><th>Slide</th><th>Description</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="td-img">
+                                <div class="prod-thumb slide-thumb"><img src="@item.ImageUrl" alt="@item.Title" /></div>
+                                <div>
+                                    <div class="prod-name">@item.Title</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">ID: @item.SliderId</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">@item.Description</td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/Slider/UpdateSlider/@item.SliderId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/Slider/DeleteSlider/@item.SliderId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

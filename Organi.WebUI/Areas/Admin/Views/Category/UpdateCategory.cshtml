@@ -1,0 +1,31 @@
+@model UpdateCategoryDto
+
+@{
+    ViewData["Title"] = "UpdateCategory";
+    ViewData["PageTitle"] = "Edit Category";
+    ViewData["PageSub"] = $"Update category · ID {Model.CategoryId}";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/Category/CategoryList" style="font-size:12px;padding:7px 16px">← Back to Categories</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">Category Details</div>
+        <form method="post" action="/Admin/Category/UpdateCategory">
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="form-grid">
+                <div class="form-group span-2">
+                    <label class="form-label" for="Name">Category Name</label>
+                    <input class="form-input" type="text" id="Name" asp-for="Name" />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Update Category</button>
+                <a class="btn-ghost" href="/Admin/Category/CategoryList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

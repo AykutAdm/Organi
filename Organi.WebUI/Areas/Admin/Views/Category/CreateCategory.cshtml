@@ -1,0 +1,30 @@
+@model CreateCategoryDto
+
+@{
+    ViewData["Title"] = "CreateCategory";
+    ViewData["PageTitle"] = "Add Category";
+    ViewData["PageSub"] = "Create a new product category";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/Category/CategoryList" style="font-size:12px;padding:7px 16px">← Back to Categories</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">Category Details</div>
+        <form method="post" action="/Admin/Category/CreateCategory">
+            <div class="form-grid">
+                <div class="form-group span-2">
+                    <label class="form-label" for="Name">Category Name</label>
+                    <input class="form-input" type="text" id="Name" asp-for="Name" placeholder="e.g. Fresh Vegetables" />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Save Category</button>
+                <a class="btn-ghost" href="/Admin/Category/CategoryList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

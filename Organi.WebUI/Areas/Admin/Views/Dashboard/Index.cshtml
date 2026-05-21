@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Component.InvokeAsync("_AdminDashboardStatsComponentPartial")
+
+<!-- CHARTS ROW -->
+<div class="charts-row">
+    <div class="chart-card">
+        <div class="chart-header">
+            <div>
+                <div class="chart-title">Stock Overview</div>
+                <div class="chart-sub">Monthly inventory movement</div>
+            </div>
+            <div class="period-tabs">
+                <div class="period-tab active">1M</div>
+                <div class="period-tab">3M</div>
+                <div class="period-tab">1Y</div>
+            </div>
+        </div>
+        <svg class="chart-svg" viewBox="0 0 460 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="lineGrad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#4caf50" stop-opacity=".18" />
+                    <stop offset="100%" stop-color="#4caf50" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <line x1="0" y1="30" x2="460" y2="30" stroke="#1e281e" stroke-width=".8" />
+            <line x1="0" y1="65" x2="460" y2="65" stroke="#1e281e" stroke-width=".8" />
+            <line x1="0" y1="100" x2="460" y2="100" stroke="#1e281e" stroke-width=".8" />
+            <line x1="0" y1="135" x2="460" y2="135" stroke="#1e281e" stroke-width=".8" />
+            <text x="0" y="28" font-size="9" fill="#4a5a4a" font-family="DM Sans">150</text>
+            <text x="0" y="63" font-size="9" fill="#4a5a4a" font-family="DM Sans">100</text>
+            <text x="0" y="98" font-size="9" fill="#4a5a4a" font-family="DM Sans">50</text>
+            <text x="0" y="133" font-size="9" fill="#4a5a4a" font-family="DM Sans">0</text>
+            <text x="30" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Jan</text>
+            <text x="95" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Feb</text>
+            <text x="160" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Mar</text>
+            <text x="225" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Apr</text>
+            <text x="290" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">May</text>
+            <text x="355" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Jun</text>
+            <text x="420" y="150" font-size="9" fill="#4a5a4a" font-family="DM Sans" text-anchor="middle">Jul</text>
+            <path class="area-path" d="M30,90 C60,70 80,50 95,60 C110,70 140,40 160,55 C180,70 200,35 225,45 C250,55 270,25 290,38 C310,51 335,30 355,42 C375,54 400,20 420,32 L420,135 L30,135 Z" fill="url(#lineGrad)" />
+            <path class="line-path" d="M30,90 C60,70 80,50 95,60 C110,70 140,40 160,55 C180,70 200,35 225,45 C250,55 270,25 290,38 C310,51 335,30 355,42 C375,54 400,20 420,32" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" />
+            <circle cx="30" cy="90" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="95" cy="60" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="160" cy="55" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="225" cy="45" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="290" cy="38" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="355" cy="42" r="3.5" fill="#4caf50" opacity=".8" />
+            <circle cx="420" cy="32" r="4.5" fill="#4caf50" />
+        </svg>
+    </div>
+
+    @await Component.InvokeAsync("_AdminDashboardCategoryDistributionComponentPartial")
+
+</div>
+
+<!-- BOTTOM GRID -->
+<div class="bottom-grid">
+
+    @await Component.InvokeAsync("_AdminDashboardRecentProductsComponentPartial")
+
+</div>

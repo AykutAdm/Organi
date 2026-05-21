@@ -1,0 +1,48 @@
+﻿@model List<CategoryDistributionDto>
+@using System.Globalization
+
+<div class="chart-card">
+    <div class="chart-header">
+        <div>
+            <div class="chart-title">Category Distribution</div>
+            <div class="chart-sub">Products by category group</div>
+        </div>
+    </div>
+    <div class="donut-wrap">
+        <svg class="donut-svg" viewBox="0 0 120 120" width="120" height="120">
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#1e281e" stroke-width="18" />
+            @{
+                var colors = new[] { "#4caf50", "#c8a84b", "#5b9bd5", "#4a5a4a", "#e05252", "#9c27b0" };
+                var circumference = 2 * Math.PI * 44;
+                var offset = 0d;
+                var colorIndex = 0;
+            }
+            @foreach (var item in Model)
+            {
+                var segment = (double)item.Percentage / 100 * circumference;
+                var dash = segment.ToString("0.##", CultureInfo.InvariantCulture);
+                var gap = (circumference - segment).ToString("0.##", CultureInfo.InvariantCulture);
+                var dashOffset = (-offset).ToString("0.##", CultureInfo.InvariantCulture);
+                <circle cx="60" cy="60" r="44" fill="none" stroke="@colors[colorIndex % colors.Length]" stroke-width="18" stroke-dasharray="@(dash) @(gap)" stroke-dashoffset="@dashOffset" transform="rotate(-90 60 60)" />
+                offset += segment;
+                colorIndex++;
+            }
+            <text x="60" y="56" text-anchor="middle" font-size="16" font-weight="700" fill="#e8ede8" font-family="Syne">@Model.Count</text>
+            <text x="60" y="68" text-anchor="middle" font-size="8" fill="#8a9a8a" font-family="DM Sans">Categories</text>
+        </svg>
+        <div class="donut-legend">
+            @{
+                colorIndex = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <div class="legend-row">
+                    <div class="legend-dot" style="background:@colors[colorIndex % colors.Length]"></div>
+                    <span class="legend-label">@item.CategoryName</span>
+                    <span class="legend-val" style="margin-left:16px">@item.Percentage%</span>
+                </div>
+                colorIndex++;
+            }
+        </div>
+    </div>
+</div>

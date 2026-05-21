@@ -1,0 +1,43 @@
+@model UpdateTestimonialDto
+
+@{
+    ViewData["Title"] = "UpdateTestimonial";
+    ViewData["PageTitle"] = "Edit Testimonial";
+    ViewData["PageSub"] = $"Update testimonial · ID {Model.TestimonialId}";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-ghost" href="/Admin/Testimonial/TestimonialList" style="font-size:12px;padding:7px 16px">← Back to Testimonial</a>
+}
+
+<div class="admin-page admin-form-page">
+    <div class="form-card">
+        <div class="form-title">Testimonial Details</div>
+        <form method="post" action="/Admin/Testimonial/UpdateTestimonial">
+            <input type="hidden" asp-for="TestimonialId" />
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="NameSurname">Name Surname</label>
+                    <input class="form-input" type="text" id="NameSurname" asp-for="NameSurname" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="Title">Title</label>
+                    <input class="form-input" type="text" id="Title" asp-for="Title" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="ImageUrl">Image URL</label>
+                    <input class="form-input" type="text" id="ImageUrl" asp-for="ImageUrl" />
+                </div>
+                <div class="form-group span-2">
+                    <label class="form-label" for="Description">Description</label>
+                    <textarea class="form-textarea" id="Description" asp-for="Description"></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Update Testimonial</button>
+                <a class="btn-ghost" href="/Admin/Testimonial/TestimonialList">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

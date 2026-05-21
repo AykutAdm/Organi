@@ -1,0 +1,47 @@
+﻿@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "AboutList";
+    ViewData["PageTitle"] = "About";
+    ViewData["PageSub"] = $"Manage about sections · {Model.Count} total";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/About/CreateAbout" style="font-size:12px;padding:7px 16px">+ Add About</a>
+}
+
+<div class="admin-page">
+    <div class="table-card table-card--cols-4" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All About Sections</div>
+        </div>
+        <table>
+            <thead><tr><th>Section</th><th>Sub Title</th><th>Description</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="td-img">
+                                <div class="prod-thumb"><img src="@item.ImageUrl" alt="@item.Title" /></div>
+                                <div>
+                                    <div class="prod-name">@item.Title</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">ID: @item.AboutId</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px;max-width:200px">@item.SubTitle</td>
+                        <td style="color:var(--text-secondary);font-size:12px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">@item.Description</td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/About/UpdateAbout/@item.AboutId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/About/DeleteAbout/@item.AboutId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

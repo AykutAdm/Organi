@@ -1,0 +1,58 @@
+﻿@model List<ResultTestimonialDto>
+
+
+<!-- testimonial-3 section start  -->
+<section class="testimonial3_sec sec_space_large sec_top_100"
+         data-aos="fade-up"
+         data-aos-duration="2000">
+
+    <div class="testimonial3_sec_wrap">
+        <div class="container-sm">
+
+            <div class="testimonial3_content position-relative">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <!-- Thumbnail Images -->
+                        <div class="testimonial3_slider_thmb d-flex justify-content-center align-items-center">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="slide_item">
+                                    <img src="@item.ImageUrl" alt="image_not_found">
+                                </div>
+                            }
+
+                        </div>
+
+                        <!-- Testimonial Text -->
+                        <div class="testimonial3_slider_items col-lg-8 m-auto">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="testimonial3_text">
+
+                                    <p class="testimonial_desc text-center">
+                                        @item.Description
+                                    </p>
+
+                                    <div class="testimonial_author text-center">
+                                        @item.NameSurname
+                                        <font>
+                                            - @item.Title
+                                        </font>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- testimonial-3 section end  -->

@@ -1,0 +1,69 @@
+﻿@model List<ResultProductNutritionDto>
+
+@{
+    ViewData["Title"] = "ProductNutritionList";
+    ViewData["PageTitle"] = "Nutritions";
+    ViewData["PageSub"] = $"Product nutrition data · {Model.Count} records";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/ProductNutrition/CreateProductNutrition" style="font-size:12px;padding:7px 16px">+ Add Nutrition</a>
+}
+
+<div class="admin-page">
+    <div class="table-card table-card--cols-nutrition" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All Nutrition Records</div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Serving</th>
+                    <th>Energy</th>
+                    <th>Fat</th>
+                    <th style="text-align:center">Carbs</th>
+                    <th style="text-align:right">Protein</th>
+                    <th style="text-align:right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="td-img">
+                                <div class="prod-thumb"><img src="@item.ProductImageUrl" alt="@item.ProductName" /></div>
+                                <div>
+                                    <div class="prod-name">@item.ProductName</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">ID: @item.ProductId</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px">@item.ServingSize</td>
+                        <td style="font-size:12px">@item.Energy</td>
+                        <td style="font-size:12px">@item.Fat</td>
+                        <td style="text-align:center">
+                            @if (item.Carbohydrates)
+                            {
+                                <span style="color:var(--accent-text)">✓</span>
+                            }
+                            else
+                            {
+                                <span style="color:var(--text-muted)">—</span>
+                            }
+                        </td>
+                        <td style="text-align:right;font-weight:500">@item.Protein g</td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/ProductNutrition/UpdateProductNutrition/@item.ProductId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/ProductNutrition/DeleteProductNutrition/@item.ProductId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

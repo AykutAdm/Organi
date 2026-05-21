@@ -1,0 +1,239 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+@{
+    var products = ViewBag.Products as List<ResultProductDto>;
+    var nutritions = ViewBag.Nutritions as List<ResultProductNutritionDto>;
+}
+
+<style>
+    .compare_content_wrap tbody tr:first-child td {
+        vertical-align: top;
+    }
+
+    .compare_content_wrap .product_image {
+        width: 200px;
+        height: 200px;
+        max-width: 100%;
+        margin: 1rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .compare_content_wrap .product_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+</style>
+
+<main>
+
+    <section class="breadcrumb_sec_1 position-relative">
+        <div class="breadcrumb_wrap sec_space_mid_small"
+             style="background-image: url(/organic-html/assets/images/breadcrumb/breadcrumb1.png);">
+            <div class="breadcrumb_cont text-center">
+                <div class="breadcrumb_title">
+                    <h2 class="text-white">Compare Page</h2>
+                </div>
+                <ul class="list-unstyled breadcrumb_item d-flex justify-content-center align-items-center text-white">
+                    <li><a href="index.html"><i class="fas fa-home active"></i>Home</a></li>
+                    <li><i class="fas fa-chevron-right"></i>Compare</li>
+                    <li><i class="fas fa-chevron-right"></i>Dried</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="compare_section sec_ptb_140 clearfix"
+             style="background-image: url(/organic-html/assets/images/compare/compare-bg.jpg);"
+             data-aos="fade-up" data-aos-duration="2000">
+        <div class="container">
+            <div class="compare_content_wrap">
+                <form action="#">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <button type="button" class="reload_btn">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </th>
+                                @for (int i = 0; i < 4; i++)
+                                {
+                                    <th>
+                                        <div class="form_item mb-0">
+                                            <input type="search" name="search"
+                                                   placeholder="SEARCH PRODUCT"
+                                                   class="product-search"
+                                                   data-index="@i" />
+                                        </div>
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ürün Kartları -->
+                            <tr>
+                                <td>
+                                    <div class="add_banner">
+                                        <img src="/organic-html/assets/images/compare/compare-5.jpg"
+                                             alt="image_not_found">
+                                        <div class="item_content text-center">
+                                            <a class="video_btn" href="#!">
+                                                <i class="fas fa-play"></i>
+                                            </a>
+                                            <h3 class="item_title mb-0 text-white">Advertisement</h3>
+                                        </div>
+                                    </div>
+                                </td>
+                                @if (products != null)
+                                {
+                                    @foreach (var product in products.Take(4))
+                                    {
+                                        var nutrition = nutritions?
+                                        .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                        <td>
+                                            <button type="button" class="remove_btn">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                            <div class="product_image">
+                                                <img src="@product.ImageUrl" alt="@product.Name">
+                                            </div>
+                                            <div class="product_content">
+                                                <span class="item_category text-uppercase">
+                                                    @product.CategoryName
+                                                </span>
+                                                <h3 class="item_title">@product.Name</h3>
+                                                <span class="price_text">
+                                                    $@product.Price.ToString("0.00")
+                                                </span>
+                                            </div>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+
+                            <!-- Nutrition Satırları -->
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        nutrition:
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td>
+                                        <span>@(nutrition?.ServingSize ?? "-")</span>
+                                    </td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        energy (kcal)
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td>
+                                        <span>@(nutrition?.Energy ?? "-")</span>
+                                    </td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        fat (g):
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td>
+                                        <span>@(nutrition?.Fat ?? "-")</span>
+                                    </td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        carbohydrates (g)
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td>
+                                        @if (nutrition?.Carbohydrates == true)
+                                        {
+                                            <span class="check_icon">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        protein (g)
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td>
+                                        <span>@(nutrition?.Protein.ToString("0.0") ?? "-")</span>
+                                    </td>
+                                }
+                            </tr>
+
+                            <tr>
+                                <td class="text-start">
+                                    <span class="equipment_title text-uppercase">
+                                        <i class="fa-regular fa-circle-check mr-1 check_icon2"></i>
+                                        note:
+                                    </span>
+                                </td>
+                                @foreach (var product in products.Take(4))
+                                {
+                                    var nutrition = nutritions?
+                                    .FirstOrDefault(n => n.ProductId == product.ProductId);
+                                    <td class="text-start">
+                                        <p>@(nutrition?.Note ?? "-")</p>
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

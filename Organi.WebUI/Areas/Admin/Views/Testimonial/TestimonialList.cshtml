@@ -1,0 +1,47 @@
+﻿@model List<ResultTestimonialDto>
+
+@{
+    ViewData["Title"] = "TestimonialList";
+    ViewData["PageTitle"] = "Testimonial";
+    ViewData["PageSub"] = $"Manage testimonials · {Model.Count} total";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/Testimonial/CreateTestimonial" style="font-size:12px;padding:7px 16px">+ Add Testimonial</a>
+}
+
+<div class="admin-page">
+    <div class="table-card table-card--cols-4" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All Testimonials</div>
+        </div>
+        <table>
+            <thead><tr><th>Customer</th><th>Title</th><th>Description</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="td-img">
+                                <div class="prod-thumb"><img src="@item.ImageUrl" alt="@item.NameSurname" /></div>
+                                <div>
+                                    <div class="prod-name">@item.NameSurname</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">ID: @item.TestimonialId</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px;max-width:180px">@item.Title</td>
+                        <td style="color:var(--text-secondary);font-size:12px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">@item.Description</td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/Testimonial/UpdateTestimonial/@item.TestimonialId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/Testimonial/DeleteTestimonial/@item.TestimonialId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

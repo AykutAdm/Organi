@@ -1,0 +1,64 @@
+﻿@model List<ResultProductDto>
+
+@{
+    ViewData["Title"] = "ProductList";
+    ViewData["PageTitle"] = "Products";
+    ViewData["PageSub"] = $"Manage all products · {Model.Count} total";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section TopbarRight {
+    <a class="btn-sm" href="/Admin/Product/CreateProduct" style="font-size:12px;padding:7px 16px">+ Add Product</a>
+}
+
+<div class="admin-page">
+    <div class="table-card table-card--cols-6" style="animation-delay:0s">
+        <div class="table-header">
+            <div class="chart-title">All Products</div>
+            <div style="display:flex;gap:8px">
+                <div class="search-box" style="width:180px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                    Filter...
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead><tr><th>Product</th><th>Category</th><th style="text-align:right">Price</th><th style="text-align:right">Stock</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="td-img">
+                                <div class="prod-thumb"><img src="@item.ImageUrl" alt="@item.Name" /></div>
+                                <div>
+                                    <div class="prod-name">@item.Name</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">ID: @item.ProductId</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px">@item.CategoryName</td>
+                        <td style="text-align:right;color:var(--accent-text);font-weight:500">$@item.Price.ToString("F2")</td>
+                        <td style="text-align:right">@item.Stock</td>
+                        <td>
+                            @if (item.Stock <= 30)
+                            {
+                                <span class="status-pill low">Low Stock</span>
+                            }
+                            else
+                            {
+                                <span class="status-pill active">In Stock</span>
+                            }
+                        </td>
+                        <td style="text-align:right">
+                            <div class="table-actions">
+                                <a href="/Admin/Product/UpdateProduct/@item.ProductId" class="action-btn action-btn-edit">Edit</a>
+                                <a href="/Admin/Product/DeleteProduct/@item.ProductId" class="action-btn action-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

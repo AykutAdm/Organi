@@ -1,0 +1,47 @@
+﻿@model List<ResultSliderDto>
+
+<!-- banner section start -->
+<section class="banner_section_main position-relative banner_2">
+    <div class="banner_section_item d-flex justify-content-center align-items-center sec_space_large"
+         style="background-image: url(/organic-html/assets/images/banner/banner2.png);">
+        @foreach (var item in Model)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 ms-3">
+                        <div class="banner_sub_title2 position-relative">
+                            <h6 class="text-white text-uppercase position-absolute">100% Organic Foods</h6>
+                            <img class="sub_title_bg" src="@item.ImageUrl"
+                                 alt="image_not_found">
+                        </div>
+                        <div class="banner_title2">
+                            <h1>
+                                @item.Title<font class="text-effect">
+                                    <span>L</span><span>i</span><span>f</span><span>e</span>
+                                </font>
+                            </h1>
+                        </div>
+                        <div class="banner_desc py-3">
+                            <p>
+                                @item.Description
+                            </p>
+                        </div>
+                        <div class="banner_btn">
+                            <a href="#!">
+                                <button type="button"
+                                        class="btn custom_btn rounded-pill px-5 py-3 text-white">
+                                    Subscribe <i class="fas fa-long-arrow-alt-right"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- header side thumb -->
+    <img class="banner2_right_thumb position-absolute" src="/organic-html/assets/images/shapes/shape5.png"
+         alt="image_not_found">
+</section>
+<!-- banner section end -->

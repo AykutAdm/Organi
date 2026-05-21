@@ -1,0 +1,192 @@
+﻿@model List<ResultBasketDto>
+@using Organi.WebUI.DTOs.BasketDtos
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<main>
+
+    <!-- Breadcrumb section start -->
+    <section class="breadcrumb_sec_1 position-relative">
+        <div class="breadcrumb_wrap sec_space_mid_small"
+             style="background-image: url(/organic-html/assets/images/breadcrumb/breadcrumb1.png);">
+            <div class="breadcrumb_cont text-center">
+                <div class="breadcrumb_title">
+                    <h2 class="text-white">Cart Page</h2>
+                </div>
+                <ul class="list-unstyled breadcrumb_item d-flex justify-content-center align-items-center text-white">
+                    <li><a href="index.html"><i class="fas fa-home active"></i>Home</a></li>
+                    <li><i class="fas fa-chevron-right"></i>About</li>
+                    <li><i class="fas fa-chevron-right"></i>Dried</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb section end -->
+    <!-- cart_section - start -->
+    <section class="cart_section sec_space_large" data-aos="fade-up"
+             data-aos-duration="2000">
+        <div class="container">
+            <div class="cart_table table-responsive position-relative">
+                <table class="table align-middle">
+                    <thead class="text-uppercase">
+                        <tr>
+                            <th>photo</th>
+                            <th>product name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="cart_product position-relative">
+                                        <div class="item_image">
+                                            <img src="@item.ProductImageUrl" alt="image_not_found"
+                                                 style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                                        </div>
+                                        <form method="post" action="/Basket/RemoveFromBasket" style="display: inline;">
+                                            <input type="hidden" name="basketId" value="@item.BasketId" />
+                                            <button type="submit" class="remove_btn position-absolute border-0 bg-transparent">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="item_content">
+                                        <a href="shop-list.html">
+                                            <h4 class="item_title">@item.ProductName</h4>
+                                        </a>
+                                        <span class="item_type">Shop groceries</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="price_text">$@item.ProductPrice.ToString("F2")</span>
+                                </td>
+                                <td>
+                                    <div class="quantity_input">
+                                        <form method="post" action="/Basket/UpdateBasket">
+                                            <input type="hidden" name="basketId" value="@item.BasketId" />
+                                            <span class="input_number_decrement" onclick="decreaseQuantity(@item.BasketId, @item.Quantity)">–</span>
+                                            <input class="input_number" name="quantity" value="@item.Quantity" id="quantity_@item.BasketId" readonly>
+                                            <span class="input_number_increment" onclick="increaseQuantity(@item.BasketId, @item.Quantity)">+</span>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="total_price">$@item.TotalPrice.ToString("F2")</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="coupon_wrap d-flex justify-content-between">
+                <div class="coupon_form d-flex align-items-center">
+                    <div class="form_item mb-0 me-5">
+                        <input type="text" class="coupon rounded-pill" placeholder="Coupon Code">
+                    </div>
+                    <button type="submit"
+                            class="btn btn_coupon custom_btn text-white rounded-pill py-2 py-sm-3 px-3 px-sm-5 text-uppercase">
+                        Apply
+                        Coupon
+                    </button>
+                </div>
+                <button type="button"
+                        class="btn coupon_update_btn text-white rounded-pill py-2 py-sm-3 px-3 px-sm-5 text-uppercase">
+                    Update
+                    Cart
+                </button>
+            </div>
+
+            <div class="row justify-content-lg-end">
+                <div class="col col-lg-4 mt-5">
+                    <div class="cart_pricing_table text-uppercase">
+                        <h3 class="table_title text-center">Cart Total</h3>
+                        <ul class="ul_li_block clearfix">
+                            <li><span>Subtotal</span> <span>$@Model.Sum(x => x.TotalPrice).ToString("F2")</span></li>
+                            <li><span>Total</span> <span>$@Model.Sum(x => x.TotalPrice).ToString("F2")</span></li>
+                        </ul>
+                        <div class="btn_wrap pt-0 text-center">
+                            <a href="#" class="btn text-uppercase text-white rounded-pill">
+                                Proceed to
+                                Checkout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- cart_section - end -->
+
+</main>
+<!-- main body end -->
+<!-- footer section start -->
+<!-- footer section end -->
+<!-- view recently products start -->
+<!-- view recently products end -->
+<!-- quick-view start -->
+
+
+
+<script>
+wwfunction decreaseQuantity(basketId, currentQuantity) {
+    if (currentQuantity > 1) {
+        updateQuantity(basketId, currentQuantity - 1);
+    } else {
+        removeFromBasket(basketId);
+    }
+}
+
+    function increaseQuantity(basketId, currentQuantity) {
+        updateQuantity(basketId, currentQuantity + 1);
+    }
+
+function updateQuantity(basketId, newQuantity) {
+    document.getElementById('quantity_' + basketId).value = newQuantity;
+    
+    // Form oluştur ve gönder
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/Basket/UpdateBasket';
+    
+    var basketIdInput = document.createElement('input');
+    basketIdInput.type = 'hidden';
+    basketIdInput.name = 'basketId';
+    basketIdInput.value = basketId;
+    
+    var quantityInput = document.createElement('input');
+    quantityInput.type = 'hidden';
+    quantityInput.name = 'quantity';
+    quantityInput.value = newQuantity;
+    
+    form.appendChild(basketIdInput);
+    form.appendChild(quantityInput);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function removeFromBasket(basketId) {
+    // Form oluştur ve gönder
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/Basket/RemoveFromBasket';
+    
+    var basketIdInput = document.createElement('input');
+    basketIdInput.type = 'hidden';
+    basketIdInput.name = 'basketId';
+    basketIdInput.value = basketId;
+    
+    form.appendChild(basketIdInput);
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
