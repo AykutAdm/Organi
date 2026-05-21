@@ -597,7 +597,7 @@ POST /api/products  (Ürün ekleme)
 | 2 | **Unit of Work** | Domain / Persistence | Transaction yönetimi |
 | 3 | **CQRS + MediatR** | Application | Okuma/yazma ayrımı |
 | 4 | **Chain of Responsibility** | Application | Validasyon zinciri |
-| 5 | **Observer Pattern** | Application / Infrastructure | Olay tabanlı stok yönetimi |
+| 5 | **Observer Pattern** | Application | Olay tabanlı stok yönetimi |
 
 ---
 
