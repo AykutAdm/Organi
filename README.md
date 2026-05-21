@@ -8,7 +8,7 @@
 ![MediatR](https://img.shields.io/badge/MediatR-CQRS-blue?style=for-the-badge)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean-green?style=for-the-badge)
 
-**Organi**, Clean Architecture prensiplerine uygun geliştirilmiş, organik ürün yönetimi için tasarlanmış bir ASP.NET Core full-stack projesidir. Projede 5 farklı tasarım deseni bir arada kullanılmıştır.**
+**Organi**, Clean Architecture prensiplerine uygun geliştirilmiş, organik ürün yönetimi için tasarlanmış bir ASP.NET Core full-stack projesidir. Projede 5 farklı tasarım deseni bir arada kullanılmıştır.
 
 </div>
 
@@ -27,7 +27,7 @@
   - [Observer Pattern](#5-observer-pattern)
 - [Tüm Desenler Birlikte](#-tüm-desenler-birlikte)
 - [Özellikler](#-özellikler)
-
+- [Proje Görselleri](#-proje-görselleri)
 
 ---
 
@@ -39,13 +39,14 @@ Organi, organik ürünlerin yönetildiği full-stack bir e-ticaret projesidir. �
 
 | Teknoloji | Amaç |
 |-----------|------|
-| ASP.NET Core 8 | Web API |
+| ASP.NET Core 8 | Web API & MVC |
 | Entity Framework Core | ORM / Veritabanı |
 | MediatR | CQRS ve Observer |
 | AutoMapper | Entity → DTO dönüşümü |
 | SQL Server | Veritabanı |
 | Swagger | API dokümantasyonu |
-| ASP.NET Core MVC (WebUI) | Kullanıcı + Admin arayüzü |
+| Bootstrap | UI Framework |
+
 ---
 
 ## 🏛 Clean Architecture
@@ -54,7 +55,7 @@ Clean Architecture, bağımlılıkların her zaman **dışarıdan içeriye** do�
 
 ```
 ╔══════════════════════════════════════════════════════╗
-║                    WebAPI (Sunum)                    ║  ← En dışta
+║                    WebUI/WebAPI (Sunum)              ║  ← En dışta
 ║  ┌────────────────────────────────────────────────┐  ║
 ║  │            Infrastructure (Altyapı)            │  ║
 ║  │  ┌──────────────────────────────────────────┐  │  ║
@@ -75,7 +76,7 @@ Clean Architecture, bağımlılıkların her zaman **dışarıdan içeriye** do�
 ### Bağımlılık Kuralı
 
 ```
-WebAPI        →  Application, Domain
+WebAPI/WebUI  →  Application, Domain
 Infrastructure →  Application, Domain
 Persistence   →  Application, Domain
 Application   →  Domain
@@ -91,14 +92,14 @@ Organi/
 │
 ├── Organi.Domain/                    # Çekirdek katman
 │   ├── Entities/
-│   │   └── About.cs
-│   │   └── Basket.cs
-│   │   └── Category.cs
-│   │   └── Product.cs
-│   │   └── ProductNutrition.cs
-│   │   └── Slider.cs
+│   │   ├── About.cs
+│   │   ├── Basket.cs
+│   │   ├── Category.cs
+│   │   ├── Product.cs
+│   │   ├── ProductNutrition.cs
+│   │   ├── Slider.cs
 │   │   └── Testimonial.cs
-│   ├── Interfaces/
+│   └── Interfaces/
 │       ├── IAboutRepository.cs
 │       ├── IBasketRepository.cs
 │       ├── ICategoryRepository.cs
@@ -106,80 +107,99 @@ Organi/
 │       ├── IProductRepository.cs
 │       ├── ISliderRepository.cs
 │       ├── ITestimonialRepository.cs
-│       ├── IUnitOfWork.cs
+│       └── IUnitOfWork.cs
 │
 ├── Organi.Application/               # İş mantığı katmanı
 │   ├── Features/
 │   │   ├── Products/
 │   │   │   ├── Chain/               # Chain of Responsibility
 │   │   │   │   ├── Abstract/
-│   │   │   │   │   └── ProductHandler.cs
-│   │   │   │   ├── Handlers/
-│   │   │   │       └── PriceValidationHandler.cs
-│   │   │   │       └── ProductNameValidationHandler.cs
+│   │   │   │   │   ├── ProductHandler.cs
+│   │   │   │   │   └── IValidationChainFactory.cs
+│   │   │   │   ├── Factories/
+│   │   │   │   │   └── ValidationChainFactory.cs
+│   │   │   │   └── Handlers/
+│   │   │   │       ├── PriceValidationHandler.cs
+│   │   │   │       ├── ProductNameValidationHandler.cs
 │   │   │   │       └── StockValidationHandler.cs
 │   │   │   ├── Commands/
+│   │   │   │   ├── CreateProductCommand.cs
+│   │   │   │   ├── UpdateProductCommand.cs
+│   │   │   │   └── RemoveProductCommand.cs
 │   │   │   ├── Queries/
+│   │   │   │   ├── GetProductsQuery.cs
+│   │   │   │   ├── GetProductByIdQuery.cs
+│   │   │   │   └── GetProductsWithFilterQuery.cs
 │   │   │   ├── DTOs/
+│   │   │   │   └── ResultProductDto.cs
 │   │   │   ├── Events/              # Observer Events
-│   │   │   │   └── ProductAddedEvent.cs
+│   │   │   │   ├── ProductAddedEvent.cs
 │   │   │   │   └── ProductRemovedEvent.cs
-│   │   │   ├── Handlers/
-│   │   │       └── CreateProductCommandHandler.cs
-│   │   │       └── ProductAddedEventHandler.cs
-│   │   │       └── ProductRemovedEventHandler.cs
+│   │   │   └── Handlers/
+│   │   │       ├── CreateProductCommandHandler.cs
+│   │   │       ├── ProductAddedEventHandler.cs
+│   │   │       ├── ProductAddedStockHandler.cs
+│   │   │       ├── ProductRemovedEventHandler.cs
+│   │   │       └── ProductRemovedStockHandler.cs
 │   │   ├── Baskets/
 │   │   │   ├── Commands/
+│   │   │   │   ├── CreateBasketCommand.cs
+│   │   │   │   ├── UpdateBasketCommand.cs
+│   │   │   │   └── RemoveBasketCommand.cs
 │   │   │   ├── Events/
-│   │   │   │   └── BasketItemAddedEvent.cs
+│   │   │   │   ├── BasketItemAddedEvent.cs
 │   │   │   │   └── BasketItemRemovedEvent.cs
-│   │   │   ├── Handlers/
-│   │   │       └── CreateBasketCommandHandler.cs
-│   │   │       └── BasketItemAddedEventHandler.cs
+│   │   │   └── Handlers/
+│   │   │       ├── CreateBasketCommandHandler.cs
+│   │   │       ├── BasketItemAddedEventHandler.cs
 │   │   │       └── BasketItemRemovedEventHandler.cs
-│   │   ├── Abouts/
 │   │   ├── Categories/
+│   │   ├── Abouts/
 │   │   ├── Sliders/
 │   │   ├── ProductNutritions/
 │   │   ├── Dashboard/
-│   │   ├── Testimonials/
+│   │   └── Testimonials/
 │   ├── Interfaces/
 │   │   └── Services/
 │   │       └── IStockService.cs
-│   ├── Mapping/
+│   └── Mapping/
 │       └── GeneralMappingProfile.cs
 │
 ├── Organi.Infrastructure/            # Dış servisler katmanı
-│   ├── Services/
+│   └── Services/
 │       └── StockService.cs
 │
 ├── Organi.Persistence/               # Veri erişim katmanı
 │   ├── Context/
 │   │   └── OrganiDbContext.cs
 │   ├── Repositories/
-│   │   └── AboutRepositories/
-│   │   └── BasketRepositories/
-│   │   └── CategoryRepositories/
-│   │   └── ProductNutritionRepositories/
-│   │   └── ProductRepositories/
-│   │   └── SliderRepositories/
+│   │   ├── AboutRepositories/
+│   │   ├── BasketRepositories/
+│   │   ├── CategoryRepositories/
+│   │   ├── ProductNutritionRepositories/
+│   │   ├── ProductRepositories/
+│   │   ├── SliderRepositories/
 │   │   └── TestimonialRepositories/
 │   ├── UnitOfWork/
 │   │   └── UnitOfWork.cs
-│   ├── Migrations/
+│   └── Migrations/
 │
-└── Organi.WebAPI/                    # Sunum katmanı
+├── Organi.WebAPI/                    # API katmanı
+│   ├── Controllers/
+│   │   ├── AboutsController.cs
+│   │   ├── BasketsController.cs
+│   │   ├── CategoriesController.cs
+│   │   ├── DashboardController.cs
+│   │   ├── ProductNutritionsController.cs
+│   │   ├── ProductsController.cs
+│   │   ├── SlidersController.cs
+│   │   └── TestimonialsController.cs
+│   └── Program.cs
+│
+└── Organi.WebUI/                     # MVC katmanı
     ├── Controllers/
-    │   └── AboutsController.cs
-    │   └── BasketsController.cs
-    │   └── CategoriesController.cs
-    │   └── DashboardController.cs
-    │   └── ProductNutritionsController.cs
-    │   └── ProductsController.cs
-    │   └── SlidersController.cs
-    │   └── TestimonialsController.cs
-    └── Program.cs
-├── Organi.WebUI/  
+    ├── Views/
+    └── wwwroot/
 ```
 
 ---
@@ -224,7 +244,7 @@ public interface IProductRepository
         decimal? maxPrice, string searchTerm);
     Task<int> ProductCountAsync();
     Task<int> LowStockCountAsync(int threshold = 30);
-    Task<List<Product>> RecentProduts();
+    Task<List<Product>> RecentProducts();
     Task<List<Product>> GetProductsWithCategoryAsync();
 }
 
@@ -257,13 +277,13 @@ public class ProductRepository : IProductRepository
 ┌──────────────────────────────────────────────────────────────┐
 │                   IUnitOfWork                                │
 │                                                              │
-│   IProductRepository  Products  { get; }                     │
-│   ICategoryRepository  Categories  { get; }                  │
-│   IBasketRepository  Baskets  { get; }                       │
-│   IProductNutritionRepository  ProductNutritions  { get; }   │
-│   ISliderRepository  Sliders  { get; }                       │
-│   IAboutRepository  Abouts  { get; }                         │
-│   ITestimonialRepository  Testimonials  { get; }             │
+│   IProductRepository Products { get; }                       │
+│   ICategoryRepository Categories { get; }                    │
+│   IBasketRepository Baskets { get; }                         │
+│   IProductNutritionRepository ProductNutritions { get; }     │
+│   ISliderRepository Sliders { get; }                         │
+│   IAboutRepository Abouts { get; }                           │
+│   ITestimonialRepository Testimonials { get; }               │
 │                                                              │
 │   Task<int> SaveChangesAsync();  ← Tek nokta                 │
 └──────────────────────────────────────────────────────────────┘
@@ -369,13 +389,13 @@ CreateProductCommand geldi
          │ ✅ Geçti
          ▼
 ┌─────────────────────┐
-│ StockValidation     │  Stok >= 0 mı?
+│ ProductNameValidation│  İsim boş mu?
 │ Handler             │──── ❌ Hata → Exception fırlatır, zincir durur
 └────────┬────────────┘
          │ ✅ Geçti
          ▼
 ┌─────────────────────┐
-│ NameValidation      │  İsim boş mu?
+│ StockValidation     │  Stok >= 0 mı?
 │ Handler             │──── ❌ Hata → Exception fırlatır, zincir durur
 └────────┬────────────┘
          │ ✅ Hepsi geçti
@@ -394,37 +414,47 @@ public abstract class ProductHandler
     public ProductHandler SetNext(ProductHandler next)
     {
         NextHandler = next;
+        return next; // Fluent interface
     }
 
     public abstract Task Handle(Product product);
 }
 
-// Zinciri kurulumu
-  public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
-  {
-      var product = _mapper.Map<Product>(request);
+// Factory ile temiz chain kurulumu
+public class ValidationChainFactory : IValidationChainFactory
+{
+    public ProductHandler CreateProductValidationChain()
+    {
+        var priceHandler = new PriceValidationHandler();
+        var nameHandler = new ProductNameValidationHandler();
+        var stockHandler = new StockValidationHandler();
 
-      var priceHandler = new PriceValidationHandler();
-      var stockHandler = new StockValidationHandler();
-      var nameHandler = new ProductNameValidationHandler();
+        // Fluent interface ile chain kurma
+        priceHandler
+            .SetNext(nameHandler)
+            .SetNext(stockHandler);
 
-      priceHandler.SetNext(stockHandler);
+        return priceHandler; // İlk halka
+    }
+}
 
-      stockHandler.SetNext(nameHandler);
+// Handler'da temiz kullanım
+public async Task Handle(CreateProductCommand request, CancellationToken ct)
+{
+    var product = _mapper.Map<Product>(request);
 
-      await priceHandler.Handle(product); // Tüm zincir çalışır
+    // Chain of Responsibility ile validation
+    var validationChain = _validationChainFactory.CreateProductValidationChain();
+    await validationChain.Handle(product);
 
+    await _unitOfWork.Products.AddAsync(product);
+    await _unitOfWork.SaveChangesAsync();
 
-      await _unitOfWork.Products.AddAsync(product);
-
-      await _unitOfWork.SaveChangesAsync();
-
-
-      // Create Event - Trigger Observers
-      await _mediator.Publish(new ProductAddedEvent(product), cancellationToken);
-  }
-
+    // Observer Pattern ile event trigger
+    await _mediator.Publish(new ProductAddedEvent(product), ct);
+}
 ```
+
 ---
 
 ### 5. Observer Pattern
@@ -439,7 +469,7 @@ public abstract class ProductHandler
       ├──────────────────────────────────────┐
       ↓                                      ↓
 ProductAddedEventHandler                   ProductAddedStockHandler
-"Ürün eklendi logu"                        "Başlangıç stok loglandı"
+"Ürün eklendi logu"                        Stok sistemi başlatma + uyarı
 
 Ürün Silindi
       │
@@ -455,41 +485,36 @@ ProductRemovedEventHandler         ProductRemovedStockHandler
 
 ```csharp
 // Event tanımı (ne oldu?)
-public class BasketItemAddedEvent : INotification
+public class ProductAddedEvent : INotification
 {
-    public int ProductId { get; }
-    public int Quantity  { get; }
-    public BasketItemAddedEvent(int productId, int quantity)
+    public Product Product { get; }
+    public ProductAddedEvent(Product product)
     {
-        ProductId = productId;
-        Quantity  = quantity;
+        Product = product;
     }
 }
 
 // Observer (ne yapılacak?)
-public class BasketItemAddedEventHandler
-    : INotificationHandler<BasketItemAddedEvent>
+public class ProductAddedStockHandler : INotificationHandler<ProductAddedEvent>
 {
     private readonly IStockService _stockService;
 
-    public async Task Handle(BasketItemAddedEvent notification, CancellationToken ct)
+    public async Task Handle(ProductAddedEvent notification, CancellationToken ct)
     {
-        // Sepete ürün eklendi → stok otomatik azalt
-        await _stockService.DecreaseStockAsync(
-            notification.ProductId,
-            notification.Quantity);
+        // Ürün eklendiğinde stok sistemi otomatik devreye girer
+        await _stockService.InitializeStockAsync(
+            notification.Product.ProductId, 
+            notification.Product.Stock);
     }
 }
 
 // Command Handler sadece event fırlatır, geri kalanı bilmez
-public async Task Handle(CreateBasketCommand request, CancellationToken ct)
+public async Task Handle(CreateProductCommand request, CancellationToken ct)
 {
-    await _unitOfWork.Baskets.AddAsync(basket);
-    await _unitOfWork.SaveChangesAsync();
-
+    // ... ürün kaydet ...
+    
     // "Bu oldu" der, kimin dinlediğini bilmez
-    await _mediator.Publish(
-        new BasketItemAddedEvent(request.ProductId, request.Quantity), ct);
+    await _mediator.Publish(new ProductAddedEvent(product), ct);
 }
 ```
 
@@ -497,16 +522,15 @@ public async Task Handle(CreateBasketCommand request, CancellationToken ct)
 
 ```csharp
 // Yarın mail göndermek istesek sadece bu sınıfı ekleriz
-public class BasketItemAddedMailHandler
-    : INotificationHandler<BasketItemAddedEvent>
+public class ProductAddedMailHandler : INotificationHandler<ProductAddedEvent>
 {
-    public async Task Handle(BasketItemAddedEvent notification, CancellationToken ct)
+    public async Task Handle(ProductAddedEvent notification, CancellationToken ct)
     {
         // Admin'e bildirim gönder
-        await _emailService.Send("Yeni sepet işlemi gerçekleşti");
+        await _emailService.Send("Yeni ürün eklendi: " + notification.Product.Name);
     }
 }
-// CreateBasketCommandHandler'a tek satır bile eklenmez!
+// CreateProductCommandHandler'a tek satır bile eklenmez!
 ```
 
 ---
@@ -560,7 +584,8 @@ POST /api/products  (Ürün ekleme)
 │ CreateProductCommandHandler  │
 │                              │
 │  1. Chain çalıştır           │  [ Chain of Responsibility - Pattern #4 ]
-│     Price → Stock → Name     │
+│     ValidationChainFactory   │
+│     Price → Name → Stock     │
 │     Validasyon geçmezse hata │
 │                              │
 │  2. Ürün kaydet              │  [ Unit of Work - Pattern #2 ]
@@ -586,6 +611,7 @@ POST /api/products  (Ürün ekleme)
 | 🔍 Filtreleme | Kategori, fiyat aralığı, arama |
 | ⚡ Observer | Stok değişimlerinde otomatik tetikleme |
 | ✅ Validasyon | Chain of Responsibility ile kural zinciri |
+| 🎯 Factory Pattern | Validation chain'leri temiz kurulum |
 
 ---
 
@@ -594,37 +620,38 @@ POST /api/products  (Ürün ekleme)
 | # | Desen | Katman | Amaç |
 |---|-------|--------|------|
 | 1 | **Repository Pattern** | Domain / Persistence | DB işlemlerini soyutlar |
-| 2 | **Unit of Work** | Domain / Persistence | Transaction yönetimi |
-| 3 | **CQRS + MediatR** | Application | Okuma/yazma ayrımı |
-| 4 | **Chain of Responsibility** | Application | Validasyon zinciri |
-| 5 | **Observer Pattern** | Application | Olay tabanlı stok yönetimi |
+| 2 | **Unit of Work** | Domain / Persistence | Transaction yönetimi | 
+| 3 | **CQRS + MediatR** | Application | Okuma/yazma ayrımı | 
+| 4 | **Chain of Responsibility** | Application | Validasyon zinciri | 
+| 5 | **Observer Pattern** | Application | Olay tabanlı stok yönetimi | 
 
 ---
-
 <div align="center">
-
+  
 **🌿 Organi'den Resimler**
 
 ### 👤 Kullanıcı Paneli
 
-  <img src="Images/AnaSayfa-1.png" alt="AnaSayfa-1" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-2.png" alt="AnaSayfa-2" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-3.png" alt="AnaSayfa-3" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-4.png" alt="AnaSayfa-4" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-5.png" alt="AnaSayfa-5" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-6.png" alt="AnaSayfa-6" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-7.png" alt="AnaSayfa-7" width="800" style="margin: 10px;">
-  <img src="Images/AnaSayfa-8.png" alt="AnaSayfa-8" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-1.png" alt="Ana Sayfa" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-2.png" alt="Ürünler" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-3.png" alt="Kategoriler" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-4.png" alt="Hakkımızda" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-5.png" alt="Testimonials" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-6.png" alt="İletişim" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-7.png" alt="Footer" width="800" style="margin: 10px;">
+  <img src="Images/AnaSayfa-8.png" alt="Sepet" width="800" style="margin: 10px;">
   
 ### 🔐 Admin Paneli
 
-  <img src="Images/AdminDashboard-1.png" alt="Admin Paneli-1" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-2.png" alt="Admin Paneli-2" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-3.png" alt="Admin Paneli-3" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-4.png" alt="Admin Paneli-4" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-5.png" alt="Admin Paneli-5" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-6.png" alt="Admin Paneli-6" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-7.png" alt="Admin Paneli-7" width="800" style="margin: 10px;">
-  <img src="Images/AdminDashboard-8.png" alt="Admin Paneli-8" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-1.png" alt="Dashboard" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-2.png" alt="İstatistikler" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-3.png" alt="Ürün Yönetimi" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-4.png" alt="Kategori Yönetimi" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-5.png" alt="Sepet Yönetimi" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-6.png" alt="Slider Yönetimi" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-7.png" alt="Hakkımızda Yönetimi" width="800" style="margin: 10px;">
+  <img src="Images/AdminDashboard-8.png" alt="Besin Değerleri" width="800" style="margin: 10px;">
 
 </div>
+
+---
